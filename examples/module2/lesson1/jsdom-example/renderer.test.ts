@@ -25,4 +25,21 @@ describe('User renderer', () => {
     renderItems(container, users);
     expect(Array.from(container.querySelectorAll('li'))).toHaveLength(2);
   });
+
+
+  test('should render admin name when user role is admin', () => {
+    localStorage.setItem('userRole', 'admin');
+
+    const container = document.createElement('div');
+    renderItems(container, users);
+    expect(Array.from(container.querySelectorAll('li'))?.[1].innerHTML).toContain('Jane');
+  });
+
+  test('should render user name when user role is no admin', () => {
+    localStorage.setItem('userRole', 'admin');
+
+    const container = document.createElement('div');
+    renderItems(container, users);
+    expect(Array.from(container.querySelectorAll('li'))?.[0].innerHTML).toContain('John');
+  });
 });
