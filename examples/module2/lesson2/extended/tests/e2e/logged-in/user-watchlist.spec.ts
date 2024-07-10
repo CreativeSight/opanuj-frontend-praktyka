@@ -15,8 +15,8 @@ test.beforeEach(async ({ page }) => {
   await helpDeskPage.goToSearchResultsPage();
 });
 
-test('search results should have Warchlist query results', async({page}) => {
-
+test('search results should have `Watchlist` in results', async({page}) => {
+  await page.waitForURL(/search=Watchlist/i);
   
-  await expect(page).not.toBe('');
+  expect(page.locator('.mw-search-results')).not.toBeNull();
 })
