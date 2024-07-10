@@ -7,6 +7,7 @@ export class MainPage {
   readonly navigation: Locator;
   private readonly featuredArticleExcerpt: Locator;
   private readonly searchInput: Locator;
+  private readonly commmunityPortalLink: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -19,6 +20,8 @@ export class MainPage {
     this.searchInput = page
       .getByRole('search')
       .getByRole('searchbox', { name: /Search Wikipedia/i });
+
+    this.commmunityPortalLink = page.locator('#vector-main-menu').getByRole('link', {name: 'Community portal'});
   }
 
   navigate() {
@@ -40,6 +43,14 @@ export class MainPage {
     await linkToFeaturedArticle.click();
 
     return this.page.waitForURL(`**${articleHref}`);
+  }
+
+  async goToCommunityPortal() {
+      const commmunityPortalLinkHref = (await this.commmunityPortalLink.getAttribute('href'))!;
+
+      await this.commmunityPortalLink.click();
+  
+      return this.page.waitForURL(`**${commmunityPortalLinkHref}`);
   }
 
   async searchFor(term: string) {
