@@ -12,9 +12,28 @@ function App() {
       .getCharacters()
       .then((res) => setData(res.results!))
       .catch((err) => console.error(err));
-  }, []);
+  });
 
-  return data.map((item) => <div key={item.id}>{item.name}</div>);
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gap: '20px',
+        width: '100%',
+        maxWidth: '100%',
+        gridTemplateColumns: 'repeat(4, 1fr)',
+      }}
+    >
+      {data.map((item) => (
+        <div key={item.id}>
+          <figure style={{ margin: 0 }}>
+            <img src={item.image} alt={item.name} />
+          </figure>
+          {item.name}
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default App;
