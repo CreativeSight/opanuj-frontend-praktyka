@@ -3,6 +3,7 @@
   import DailyWeather from './DailyWeather.svelte';
 
   export let weather: LocationWeather;
+  export let weatherDetails = weather.weatherDetails ?? weather.weatherDetails.Weather;
 </script>
 
 <div>
@@ -10,8 +11,11 @@
     {weather.city}, {weather.country}
   </h2>
   <ul class="space-y-4">
-    {#each weather.weatherDetails as details}
-      <DailyWeather dailyWeather={details} />
-    {/each}
+    {#if weatherDetails}
+      {#each weatherDetails as details}
+        <DailyWeather dailyWeather={details} />
+      {/each}
+    {/if}
   </ul>
 </div>
+
